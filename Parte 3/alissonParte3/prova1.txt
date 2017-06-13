@@ -1,0 +1,59 @@
+	create table produto ( 
+		codigo serial not null, 
+		descricao varchar(40) not null, 
+		preco float not null, 
+		primary key (codigo));
+
+	create table fornecedor ( 
+		codigo serial not null, 
+		razaosocial varchar(40) not null, 
+		primary key (codigo));
+
+	create table fornecprod (
+		codigoprod integer, 
+		codigofornec integer, 
+		primary key (codigoprod, codigofornec), 
+		FOREIGN KEY(codigoprod) REFERENCES produto(codigo), 
+		FOREIGN KEY(codigofornec) REFERENCES fornecedor(codigo));
+
+	create table cliente ( 
+		codigo serial not null, 
+		nome varchar(40) not null, 
+		primary key (codigo));
+
+	create table venda ( 
+		codigo serial not null, 
+		id_cliente integer not null, 
+		dataVenda varchar(11), 
+		primary key (codigo));	
+
+	create table item_venda (
+		id_venda integer not null, 
+		id_produto integer not null,
+		qtd integer not null, 
+		totalitem float not null);			
+		
+		insert into produto (descricao, preco) values ('vinho tinto cabernet sauvignon', 21.75);
+		insert into produto (descricao, preco) values ('vinho tinto carmenere', 13.40);
+		insert into produto (descricao, preco) values ('carvão 5kg', 8.50);
+		insert into produto (descricao, preco) values ('carvão 3kg', 5.70);
+		
+		insert into fornecedor (razaosocial) values ('FBI bebidas');
+		insert into fornecedor (razaosocial) values ('Carva Fornos LTDA');
+		
+		insert into fornecprod (codigoprod, codigofornec) values (1,1);
+		insert into fornecprod (codigoprod, codigofornec) values (2,1);
+		insert into fornecprod (codigoprod, codigofornec) values (3,2);
+		insert into fornecprod (codigoprod, codigofornec) values (4,2);
+
+		insert into cliente (nome) values ('jocelaine');
+		insert into cliente (nome) values ('nego nelson');
+		insert into cliente (nome) values ('cicatriz');
+
+		insert into venda (id_cliente, dataVenda) values (1,'03/04/2016');
+		insert into venda (id_cliente, dataVenda) values (2,'03/04/2016');
+		
+		insert into item_venda (id_venda, id_produto, qtd, totalitem) values (1,1,2,43.5);
+		insert into item_venda (id_venda, id_produto, qtd, totalitem) values (1,2,1,14.4);
+		insert into item_venda (id_venda, id_produto, qtd, totalitem) values (2,2,10,140.4);
+		
